@@ -3,3 +3,13 @@
   authorized_key:
       user: ansible-user
       key: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDylil2y1icH5gmDd0wJPlFJZ7ELGY7YD+ORpVLnahfE6PTncHpfZrJzVG+lMJ7DAuy0UnSMjpyAimumImmtfBBDAZ4YBIhLkfivEMSRtLcr3SyiAjr53Qp5JNKEVFxVsXHnbXhLPMwnpON5vZND1Qns3tEYRxR7Jheis7VvdoT0N+tEojgCGnN4arytVj4vEatsCHDrJaZ06UtoCn09bOCCZWazQOgkHsChoXdc0tdcfZEn8Ha5+xKFyWwYFrRU71NBGuRsuOA8JMa9JvecoEtgBDJlN0HA8kbblzG08Wmk+TJ5r4McBv5u53fjmqzab5G8c6V2ljnb4tYuhFnu0/AwCZPDDm6hIy4bVSBShWqAnqYDcV092k/I52YoyqxgStJLLA0uCaIRC0arBCs6epomJjFfKlEcKyZn4Z3F+iYHUJwjViJIbSsP0CSItJDpnR0dLd52ph50QP4zSMvUR0xPJ+U1TL4AyFjDgxYfhHtrMUlZc409HG9GJo7ujhrtzLZDUjQDk9Eum/lKl2Jgjc7HpD2MtAbOfRwHTlpbbSohUYl8S8t4u9aIg/AWpwqDnWgTSyz1Om81IyVSYgsBMuX82rBxaIV18+Jts86PmqWjlB04EVsdIdsFacMMxxWitdbJT4AiyhrvVaV3/ebKsMMReL/Hmi9ItPOuhBY7L9uiQ== ansible'
+
+- name: generate sshd_config file from template
+  tags: ssh
+  template:
+      src: '{{ ssh_template_file }}'
+      dest: /etc/ssh/sshd_config
+      owner: root
+      group: root
+      mode: 0644
+  notify: restart_sshd
